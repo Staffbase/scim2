@@ -1,5 +1,8 @@
 dependencies {
-    implementation project(":scim2-sdk-common")
+    // find "sibling" dependency.
+    // we need to do this because this repo might be built as either root or sub project
+    // and there might be different paths to the project depending on that
+    implementation parent.subprojects.find { p -> p.name.endsWith("scim2-sdk-common") }
 
     implementation group: "org.springframework.boot", name: "spring-boot-starter-web"
 

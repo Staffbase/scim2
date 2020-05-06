@@ -1,7 +1,16 @@
-plugins {
-    id "io.spring.dependency-management" version "1.0.6.RELEASE" apply false
-    id "com.palantir.git-version" version "0.12.0-rc2"
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.palantir.gradle.gitversion:gradle-git-version:0.12.3"
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE"
+    }
 }
+
+apply plugin:  "com.palantir.git-version"
 
 group "com.staffbase.scim2"
 version gitVersion()
@@ -127,8 +136,4 @@ subprojects {
 uploadArchives {
     dependsOn = subprojects.uploadArchives
     enabled = false
-}
-
-wrapper {
-    gradleVersion = '5.2.1'
 }

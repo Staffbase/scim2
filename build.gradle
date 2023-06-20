@@ -88,7 +88,3 @@ subprojects {
 wrapper {
     gradleVersion = '8.1.1'
 }
-
-tasks.withType(JavaCompile) {
-    options.compilerArgs << '-Xlint:deprecation'
-}

@@ -7,7 +7,6 @@ import com.bettercloud.scim2.server.ResourceTypeDefinition;
 import com.bettercloud.scim2.server.controller.BaseResourceController;
 import com.bettercloud.scim2.server.evaluator.SchemaAwareFilterEvaluator;
 import com.bettercloud.scim2.server.resourcetypes.ResourceTypeRegistry;
-import com.google.common.base.Throwables;
 import com.bettercloud.scim2.common.GenericScimResource;
 import com.bettercloud.scim2.common.ScimResource;
 import com.bettercloud.scim2.common.exceptions.ScimException;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public abstract class SchemaAwareController extends BaseResourceController<GenericScimResource> {
     private final SchemaAwareFilterEvaluator filterEvaluator = new SchemaAwareFilterEvaluator(resourceTypeDefinition);
@@ -51,7 +49,7 @@ public abstract class SchemaAwareController extends BaseResourceController<Gener
     public ListResponse<GenericScimResource> search(
             @RequestParam(value = ApiConstants.QUERY_PARAMETER_FILTER, required = false) final String filterString) throws ScimException {
 
-        final List<GenericScimResource> filteredResources = StringUtils.isEmpty(filterString)
+        final List<GenericScimResource> filteredResources = StringUtils.hasLength(filterString)
                                                             ? getResources(resourceTypeRegistry.getResourceTypeDefinitions())
                                                             : filterResources(Filter.fromString(filterString));
         final List<GenericScimResource> preparedResources = genericScimResourceConverter.convert(null, null, filteredResources);
@@ -79,7 +77,7 @@ public abstract class SchemaAwareController extends BaseResourceController<Gener
             try {
                 return filter.visit(filterEvaluator, genericScimResource.getObjectNode());
             } catch (ScimException e) {
-                throw Throwables.propagate(e);
+                throw new RuntimeException(e);
             }
         }).toList();
     }

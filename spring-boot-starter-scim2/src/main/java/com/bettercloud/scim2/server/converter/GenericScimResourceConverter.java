@@ -14,14 +14,13 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.util.List;
 import java.util.function.BiConsumer;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
-public class GenericScimResourceConverter<RESOURCE extends ScimResource> {
+public class GenericScimResourceConverter<R extends ScimResource> {
 
     private final ResourceTypeDefinition resourceTypeDefinition;
 
@@ -36,7 +35,7 @@ public class GenericScimResourceConverter<RESOURCE extends ScimResource> {
      *
      * @throws BadRequestException This will never be thrown.
      */
-    public GenericScimResource convert(final RESOURCE resource) throws BadRequestException {
+    public GenericScimResource convert(final R resource) throws BadRequestException {
         return convert(null, null, resource, (r, u) -> {
         });
     }
@@ -52,7 +51,7 @@ public class GenericScimResourceConverter<RESOURCE extends ScimResource> {
      *
      * @throws BadRequestException This will never be thrown.
      */
-    public GenericScimResource convert(final RESOURCE resource, final BiConsumer<RESOURCE, URI> prepareResource) throws BadRequestException {
+    public GenericScimResource convert(final R resource, final BiConsumer<R, URI> prepareResource) throws BadRequestException {
         return convert(null, null, resource, prepareResource);
     }
 
@@ -67,7 +66,7 @@ public class GenericScimResourceConverter<RESOURCE extends ScimResource> {
      *
      * @throws BadRequestException This can be thrown if the attributes parameter is invalid.
      */
-    public GenericScimResource convert(final String attributes, final String excludedAttributes, final RESOURCE resource) throws BadRequestException {
+    public GenericScimResource convert(final String attributes, final String excludedAttributes, final R resource) throws BadRequestException {
         return convert(attributes, excludedAttributes, resource, (r, u) -> {
         });
     }
@@ -86,8 +85,8 @@ public class GenericScimResourceConverter<RESOURCE extends ScimResource> {
      * @throws BadRequestException This can be thrown if the attributes parameter is invalid.
      */
     public GenericScimResource convert(final String attributes, final String excludedAttributes,
-                                       final RESOURCE resource,
-                                       final BiConsumer<RESOURCE, URI> prepareResource) throws BadRequestException {
+                                       final R resource,
+                                       final BiConsumer<R, URI> prepareResource) throws BadRequestException {
         final ResourcePreparer<GenericScimResource> resourcePreparer = prepare(attributes, excludedAttributes);
 
         prepareResource.accept(resource, getBaseUri());
@@ -117,7 +116,7 @@ public class GenericScimResourceConverter<RESOURCE extends ScimResource> {
      */
     public List<GenericScimResource> convert(final String attributes,
                                              final String excludedAttributes,
-                                             final List<RESOURCE> resourceList) throws BadRequestException {
+                                             final List<R> resourceList) throws BadRequestException {
         return convert(attributes, excludedAttributes, resourceList, (r, u) -> {
         });
     }
@@ -136,8 +135,8 @@ public class GenericScimResourceConverter<RESOURCE extends ScimResource> {
      * @throws BadRequestException This can be thrown if the attributes parameter is invalid.
      */
     public List<GenericScimResource> convert(final String attributes, final String excludedAttributes,
-                                             final List<RESOURCE> resourceList,
-                                             final BiConsumer<RESOURCE, URI> prepareResource) throws BadRequestException {
+                                             final List<R> resourceList,
+                                             final BiConsumer<R, URI> prepareResource) throws BadRequestException {
         final ResourcePreparer<GenericScimResource> resourcePreparer = prepare(attributes, excludedAttributes);
 
         return resourceList.stream().map(resource -> {
@@ -147,7 +146,7 @@ public class GenericScimResourceConverter<RESOURCE extends ScimResource> {
             resourcePreparer.setResourceTypeAndLocation(genericScimResource);
 
             return resourcePreparer.trimRetrievedResource(genericScimResource);
-        }).collect(Collectors.toList());
+        }).toList();
     }
 
     private ResourcePreparer<GenericScimResource> prepare(final String attributes, final String excludedAttributes) throws BadRequestException {

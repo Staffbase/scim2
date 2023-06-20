@@ -1,6 +1,6 @@
 package com.bettercloud.scim2.server;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 public class StaticBaseUrlProvider implements BaseUrlProvider {
     private final String baseUrl;

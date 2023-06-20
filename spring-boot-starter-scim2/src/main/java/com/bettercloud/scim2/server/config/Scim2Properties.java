@@ -8,6 +8,9 @@ import com.bettercloud.scim2.common.types.FilterConfig;
 import com.bettercloud.scim2.common.types.PatchConfig;
 import com.bettercloud.scim2.common.types.ServiceProviderConfigResource;
 import com.bettercloud.scim2.common.types.SortConfig;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,9 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.StringUtils;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class Scim2Properties {
     private ServiceProviderConfigProperties serviceProviderConfig;
 
     public void setResourcesPackage(final String resourcesPackage) {
-        if (StringUtils.isEmpty(resourcesPackage)) {
+        if (StringUtils.hasLength(resourcesPackage)) {
             log.warn("scim2.resourcesPackage was not set. This can slow down server initialization significantly.");
         }
 
@@ -84,7 +84,7 @@ public class Scim2Properties {
                                                      getEtag().getETagConfig(),
                                                      authenticationSchemes.stream()
                                                                           .map(AuthenticationSchemeProperties::getAuthenticationScheme)
-                                                                          .collect(Collectors.toList()));
+                                                                          .toList());
         }
 
         @Data

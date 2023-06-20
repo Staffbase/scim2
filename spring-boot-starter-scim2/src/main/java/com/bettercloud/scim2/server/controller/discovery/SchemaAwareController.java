@@ -4,7 +4,6 @@ import com.bettercloud.scim2.common.exceptions.ResourceNotFoundException;
 import com.bettercloud.scim2.common.utils.ApiConstants;
 import com.bettercloud.scim2.server.BaseUrlProvider;
 import com.bettercloud.scim2.server.ResourceTypeDefinition;
-import com.bettercloud.scim2.server.config.Scim2Properties;
 import com.bettercloud.scim2.server.controller.BaseResourceController;
 import com.bettercloud.scim2.server.evaluator.SchemaAwareFilterEvaluator;
 import com.bettercloud.scim2.server.resourcetypes.ResourceTypeRegistry;
@@ -32,7 +31,7 @@ public abstract class SchemaAwareController extends BaseResourceController<Gener
     protected ResourceTypeRegistry resourceTypeRegistry;
 
     @Autowired
-    public SchemaAwareController(final BaseUrlProvider baseUrlProvider,
+    protected SchemaAwareController(final BaseUrlProvider baseUrlProvider,
                                  final ResourceTypeRegistry resourceTypeRegistry) {
         super(baseUrlProvider);
         this.resourceTypeRegistry = resourceTypeRegistry;
@@ -82,6 +81,6 @@ public abstract class SchemaAwareController extends BaseResourceController<Gener
             } catch (ScimException e) {
                 throw Throwables.propagate(e);
             }
-        }).collect(Collectors.toList());
+        }).toList();
     }
 }

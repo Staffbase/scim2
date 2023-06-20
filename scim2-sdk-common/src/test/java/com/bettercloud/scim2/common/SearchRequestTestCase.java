@@ -27,6 +27,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
 
 /**
  * Test for search requests.
@@ -57,12 +58,12 @@ public class SearchRequestTestCase
 
     assertEquals(searchRequest.getAttributes(),
         StaticUtils.arrayToSet("displayName", "userName"));
-    assertEquals(searchRequest.getExcludedAttributes(), null);
+    assertNull(searchRequest.getExcludedAttributes());
     assertEquals(searchRequest.getFilter(), "displayName sw \"smith\"");
-    assertEquals(searchRequest.getSortBy(), null);
-    assertEquals(searchRequest.getSortOrder(), null);
-    assertEquals(searchRequest.getStartIndex(), new Integer(1));
-    assertEquals(searchRequest.getCount(), new Integer(10));
+    assertNull(searchRequest.getSortBy());
+    assertNull(searchRequest.getSortOrder());
+    assertEquals(searchRequest.getStartIndex(), Integer.valueOf(1));
+    assertEquals(searchRequest.getCount(), Integer.valueOf(10));
 
     searchRequest = JsonUtils.getObjectReader().
         forType(SearchRequest.class).

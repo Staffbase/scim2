@@ -94,7 +94,7 @@ public class GenericScimResourceObjectTest
 
     ScimResource cso = gso;
 
-    Set<String> schemaSet = new HashSet<String>();
+    Set<String> schemaSet = new HashSet<>();
     schemaSet.add("urn:pingidentity:schemas:baseSchema");
     schemaSet.add("urn:pingidentity:schemas:favoriteColor");
 
@@ -155,14 +155,14 @@ public class GenericScimResourceObjectTest
         getStringValue(path2), value2);
 
     List<String> list1 = gsr.addStringValues(path3,
-                                             Lists.<String>newArrayList(arrayValue1, arrayValue2)).
+                                             Lists.newArrayList(arrayValue1, arrayValue2)).
         getStringValueList(Path.fromString(path3));
     Assert.assertEquals(list1.size(), 2);
     Assert.assertTrue(list1.contains(arrayValue1));
     Assert.assertTrue(list1.contains(arrayValue2));
 
     List<String> list2 = gsr.addStringValues(Path.fromString(path4),
-                                             Lists.<String>newArrayList(arrayValue3, arrayValue4)).
+                                             Lists.newArrayList(arrayValue3, arrayValue4)).
         getStringValueList(path4);
     Assert.assertEquals(list2.size(), 2);
     Assert.assertTrue(list2.contains(arrayValue3));
@@ -228,15 +228,15 @@ public class GenericScimResourceObjectTest
   public void testDoubleMethods() throws ScimException
   {
     String path1 = "path1";
-    Double value1 = new Double(3.5);
+    double value1 = 3.5;
     String path2 = "path2";
-    Double value2 = new Double(7.3);
+    double value2 = 7.3;
     String path3 = "path3";
-    Double arrayValue1 = new Double(8.2);
-    Double arrayValue2 = new Double(12.3);
+    Double arrayValue1 = 8.2;
+    Double arrayValue2 = 12.3;
     String path4 = "path4";
-    Double arrayValue3 = new Double(2.9);
-    Double arrayValue4 = new Double(1.2);
+    Double arrayValue3 = 2.9;
+    Double arrayValue4 = 1.2;
 
     GenericScimResource gsr = new GenericScimResource();
     Assert.assertEquals(gsr.replaceValue(path1, value1).
@@ -245,12 +245,12 @@ public class GenericScimResourceObjectTest
         getDoubleValue(path2), value2, 0.01);
 
     List<Double> list1 = gsr.addDoubleValues(path3,
-                                             Lists.<Double>newArrayList(arrayValue1, arrayValue2)).
+                                             Lists.newArrayList(arrayValue1, arrayValue2)).
         getDoubleValueList(Path.fromString(path3));
     Assert.assertEquals(list1.size(), 2);
 
      List<Double> list2 = gsr.addDoubleValues(Path.fromString(path4),
-                                              Lists.<Double>newArrayList(arrayValue3, arrayValue4)).
+                                              Lists.newArrayList(arrayValue3, arrayValue4)).
         getDoubleValueList(path4);
     Assert.assertEquals(list2.size(), 2);
 

@@ -34,7 +34,7 @@ import java.lang.annotation.Target;
 public @interface Attribute
 {
   /**
-   * Determines if the attribute value is case sensitive.
+   * Determines if the attribute value is case-sensitive.
    *
    * @return A flag indicating the attribute value's case sensitivity.
    */
@@ -96,7 +96,7 @@ public @interface Attribute
    * If the attribute is multi-value, this holds the type of the
    * child object.
    *
-   * @return For a multi-valued attribute, the type of the child object.
+   * @return For a multivalued attribute, the type of the child object.
    */
-  Class multiValueClass() default NullType.class;
+  Class<?> multiValueClass() default NullType.class;
 }

@@ -6,6 +6,7 @@ import com.bettercloud.scim2.server.BaseUrlProvider;
 import com.bettercloud.scim2.server.ResourceTypeDefinition;
 import com.bettercloud.scim2.server.controller.BaseResourceController;
 import com.bettercloud.scim2.server.evaluator.SchemaAwareFilterEvaluator;
+import com.bettercloud.scim2.server.exceptions.ScimProcessingException;
 import com.bettercloud.scim2.server.resourcetypes.ResourceTypeRegistry;
 import com.bettercloud.scim2.common.GenericScimResource;
 import com.bettercloud.scim2.common.ScimResource;
@@ -77,7 +78,7 @@ public abstract class SchemaAwareController extends BaseResourceController<Gener
             try {
                 return filter.visit(filterEvaluator, genericScimResource.getObjectNode());
             } catch (ScimException e) {
-                throw new RuntimeException(e);
+                throw new ScimProcessingException("Exception while processing SCIM data", e);
             }
         }).toList();
     }

@@ -109,7 +109,7 @@ public class SchemaUtils
     {
       Collection<AttributeDefinition> subAttributes = getAttributes(Meta.class);
       builder.addSubAttributes(subAttributes.toArray(
-          new AttributeDefinition[subAttributes.size()]));
+              new AttributeDefinition[0]));
     }
     catch (IntrospectionException e)
     {

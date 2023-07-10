@@ -45,8 +45,7 @@ public class GenericScimResourceConverter<RESOURCE extends ScimResource> {
      * Convert a resource after preparing it with the supplied BiConsumer.
      *
      * @param resource        The resource to be converted.
-     * @param prepareResource A BiConsumer that will do prepare the resource.  Usually used to set the references of {@link
-     *                        com.bettercloud.scim2.common.ComplexRef}
+     * @param prepareResource A BiConsumer that will do prepare the resource.  Usually used to set the references.
      *
      * @return A generic resource that has had all the correct types and locations set.
      *
@@ -78,8 +77,7 @@ public class GenericScimResourceConverter<RESOURCE extends ScimResource> {
      * @param attributes      Attributes filter. ex type,schemaBlob
      * @param excludedAttributes Exclude attributes filter. ex type,schemaBlob  This is not used if the attributes filter is defined.
      * @param resource        The resource to be converted.
-     * @param prepareResource A BiConsumer that will prepare the resource.  Usually used to set the references of {@link
-     *                        com.bettercloud.scim2.common.ComplexRef}
+     * @param prepareResource A BiConsumer that will prepare the resource.  Usually used to set the references.
      *
      * @return A generic resource that has had all the correct types and locations set.
      *
@@ -128,8 +126,7 @@ public class GenericScimResourceConverter<RESOURCE extends ScimResource> {
      * @param attributes         Attributes filter. ex type,schemaBlob
      * @param excludedAttributes Excluded attributes filter. ex type,schemaBlob
      * @param resourceList       The resources to be converted.
-     * @param prepareResource    A BiConsumer that will prepare the resource.  Usually used to set the references of {@link
-     *                           com.bettercloud.scim2.common.ComplexRef}
+     * @param prepareResource    A BiConsumer that will prepare the resource.  Usually used to set the references.
      *
      * @return A list of generic resources that have had all the correct types and locations set.
      *
